@@ -15,25 +15,25 @@ services:
       - key: MATOMO_DATABASE_HOST
         fromService:
           name: mysql-matomo
-          type: pserv
+          type: web
           property: host
       - key: MATOMO_DATABASE_USERNAME
         fromService:
           name: mysql-matomo
-          type: pserv
+          type: web
           envVarKey: MYSQL_USER
       - key: MATOMO_DATABASE_PASSWORD
         fromService:
           name: mysql-matomo
-          type: pserv
+          type: web
           envVarKey: MYSQL_PASSWORD
       - key: MATOMO_DATABASE_DBNAME
         fromService:
           name: mysql-matomo
-          type: pserv
+          type: web
           envVarKey: MYSQL_DATABASE
 
-  - type: pserv
+  - type: web
     name: mysql-matomo
     repo: https://github.com/render-examples/mysql.git
     env: docker
