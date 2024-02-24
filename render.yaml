@@ -2,7 +2,8 @@ services:
   - type: web
     name: matomo
     env: docker
-    plan: standard
+    plan: starter
+    region: frankfurt
     # Recommended health check endpoint: https://matomo.org/faq/how-to/faq_20278/
     healthCheckPath: /matomo.php
     autoDeploy: false
@@ -13,43 +14,22 @@ services:
     envVars:
       - key: MATOMO_DATABASE_HOST
         fromService:
-          name: mysql-matomo
-          type: pserv
+          name: mysql
+          type: web
           property: host
       - key: MATOMO_DATABASE_USERNAME
         fromService:
-          name: mysql-matomo
-          type: pserv
+          name: mysql
+          type: web
           envVarKey: MYSQL_USER
       - key: MATOMO_DATABASE_PASSWORD
         fromService:
-          name: mysql-matomo
-          type: pserv
+          name: mysql
+          type: web
           envVarKey: MYSQL_PASSWORD
       - key: MATOMO_DATABASE_DBNAME
         fromService:
-          name: mysql-matomo
-          type: pserv
+          name: mysql
+          type: web
           envVarKey: MYSQL_DATABASE
 
-  - type: pserv
-    name: mysql-matomo
-    repo: https://github.com/render-examples/mysql.git
-    env: docker
-    plan: standard
-    autoDeploy: false
-    disk:
-      name: mysql-matomo
-      mountPath: /var/lib/mysql
-      sizeGB: 20
-    envVars:
-      - key: MYSQL_DATABASE
-        value: mysql
-      - key: MYSQL_USER
-        value: mysql
-      - key: PORT
-        value: 3306
-      - key: MYSQL_PASSWORD
-        generateValue: true
-      - key: MYSQL_ROOT_PASSWORD
-        generateValue: true
